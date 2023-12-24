@@ -6,7 +6,7 @@ const {
   toAddress,
 } = require("./Address");
 
-const { erc20ABI, factoryABI, pairABI, routerABI } = require("ABIInfo");
+const { erc20ABI, factoryABI, pairABI, routerABI } = require("./ABIInfo");
 
 const provider = new ethers.providers.JsonRpcProvider(
   "https://bsc-dataseed1.binance.org/"
