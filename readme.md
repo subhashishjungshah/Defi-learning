@@ -18,12 +18,13 @@ DeFi is transforming the traditional financial landscape by leveraging blockchai
 ### 2. Projects
 
 - [Token swap](token-swap/PriceFetch.js)
+- [Flash Loan Smart Contracts]
 
 ## Getting Started
 
 To explore the contents of this repository and start learning about DeFi, you can:
 
-1. **Clone the repository:**
+1. **Clone the repository:4**
 
    ```bash
    git clone https://github.com/subhashishjungshah/DeFi-learning.git
