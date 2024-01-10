@@ -30,6 +30,7 @@ contract FlashLoan {
         115792089237316195423570985008687907853269984665640564039457584007913129639935;
 
     function initArbitrage(address _borrowedToken, uint _borrowAmount) {
+        // Allow our account to spend BUSD, CROX and CAKE
         IERC20(BUSD).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
         IERC20(CROX).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
         IERC20(CAKE).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
@@ -59,5 +60,27 @@ contract FlashLoan {
 
         // Here, I am transfering the borrowed token to this flash loan contract
         IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
+    }
+
+    function pancakeCall(
+        address _sender,
+        uint _amount0,
+        uint _amount1,
+        bytes1 calldata _data
+    ) external {
+        address token0 = IUniswapV2Pair(msg.sender).token0();
+        address token1 = IUniswapV2Pair(msg.sender).token1();
+
+        address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
+            token0,
+            token1
+        );
+        require(msg.sender == pair, "Pair doen't match");
+        require(_sender == address(this), "Sender doen't match");
+
+        (address busdBorrowed, uint amount, address borrower) = abi.decode(
+            _data,
+            (address, uint, address)
+        );
     }
 }
